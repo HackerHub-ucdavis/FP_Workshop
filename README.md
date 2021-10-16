@@ -31,6 +31,8 @@ Create functions from functions.
 
 ### Python Example
 
+From [geeks for geeks](https://www.geeksforgeeks.org/python-program-for-quicksort/).
+
 ```python
 def partition(arr, low, high):
     i = (low-1)         # index of smaller element
