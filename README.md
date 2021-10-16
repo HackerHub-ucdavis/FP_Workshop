@@ -133,7 +133,7 @@ You should know the type of function `h` by now.
 functions who takes in a functions as parameter and/or returns a function.
 Some well-known examples that exits in may languages
 * `map :: (a -> b) -> [a] -> [b]`
-* `reduce :: (a -> a) -> [a] -> a`
+* `reduce :: (a -> a -> a) -> [a] -> a`
 * `all :: (a -> Bool) -> [a] -> Bool`
 * `takeWhile :: (a -> Bool) -> [a] -> [a]`
 * `zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]`
@@ -181,8 +181,21 @@ which gives the definition of "Foldable".
 
 ```haskell
 map' :: (a -> b) -> [a] -> [b]
-reduce :: (a -> b) -> [a] -> [b]
-all' :: (a -> b) -> [a] -> [b]
+map' f = foldr f' []
+  where
+    f' x acc = f x : acc
+
+reduce :: (a -> a -> a) -> [a] -> a
+reduce _ [] = error "TypeError: reduce of empty sequence with no initial value" -- error msg from py
+reduce f (x : xs) = foldr f x xs
+
+-- here advanced linter would suggest usr and to replace foldr (&&) True
+-- for this project, ignore
+-- for future usage of haskell, you should use and
+all' :: (a -> Bool) -> [a] -> Bool
+all' f xs = foldr (&&) True ys
+  where
+    ys = map f xs
 ```
 
 <!-- slide -->
@@ -192,7 +205,11 @@ all' :: (a -> b) -> [a] -> [b]
 Make a interesting and useful function library based on `foldr`.
 * you may only use `foldr` and operators in haskell Prelude
 * once you make the first two functions with `foldr`, you can start composing them to get new functions
-* To Submit, fork this repository, write your name and email on top of `README.md`. Submit a pull request when finished.
+* To Submit, fork this repository, write your name and email on top of `README.md`.
+  * write your library in `MyLibrary.hs`
+  * create and write a documentation `doc.md` for your library.
+  * To test your functions, use the interactive shell `ghci MyLibrary.hs`
+  * Submit a pull request to this repo when finished.
 
 <!-- slide -->
 
