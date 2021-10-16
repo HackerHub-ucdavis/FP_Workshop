@@ -7,17 +7,94 @@ presentation:
 ---
 
 <!-- slide -->
+
 # FP Workshop
+
 HackerHub Intro to FP Workshop
 
 Ethan He
 yfhe@ucdavis.edu
 
 <!-- slide -->
+
 ## Goal
+
 Create functions from functions.
 * composition
 * higher order functions
+
+<!-- slide -->
+
+## A Quick Comparison With Quick Sort
+
+<!-- slide -->
+
+### Python Example
+
+```python
+def partition(arr, low, high):
+    i = (low-1)         # index of smaller element
+    pivot = arr[high]     # pivot
+  
+    for j in range(low, high):
+  
+        # If current element is smaller than or
+        # equal to pivot
+        if arr[j] <= pivot:
+  
+            # increment index of smaller element
+            i = i+1
+            arr[i], arr[j] = arr[j], arr[i]
+  
+    arr[i+1], arr[high] = arr[high], arr[i+1]
+    return (i+1)
+  
+# The main function that implements QuickSort
+# arr[] --> Array to be sorted,
+# low  --> Starting index,
+# high  --> Ending index
+  
+# Function to do Quick sort
+  
+  
+def quickSort(arr, low, high):
+    if len(arr) == 1:
+        return arr
+    if low < high:
+  
+        # pi is partitioning index, arr[p] is now
+        # at right place
+        pi = partition(arr, low, high)
+  
+        # Separately sort elements before
+        # partition and after partition
+        quickSort(arr, low, pi-1)
+        quickSort(arr, pi+1, high)
+```
+
+<!-- slide -->
+### Haskell Example
+
+```haskell
+quicksort :: Ord a => [a] -> [a]
+quicksort [] = []
+quicksort (x : xs) = quicksort left ++ [x] ++ quicksort right
+  where
+    left = [y | y <- xs, y < x]
+    right = [y | y <- xs, y >= x]
+```
+
+<!-- slide -->
+
+# Use of `ghc`/`ghci`
+
+`ghc`: compiler
+`ghci`: The interactive shell of haskell, just like `IDLE` for python
+
+### Useful command in `ghci`
+* `:t` or `:type` check the type signature of a expression.
+
+For more detailed doc, see links at end of slides.
 
 <!-- slide -->
 
@@ -64,7 +141,7 @@ We don't usually give a name to lambda functions since they are mostly used when
 
 ### Types
 
-We don't have to write the type explicitly in haskell,
+We don't have to write the type explicitly in haskell, 
 the compiler (or linter in your editor) will infer the types itself.
 
 ```haskell
@@ -96,8 +173,9 @@ $$
 Think about this:
 If a function takes two parameter, but you just pass one in, what will it turn?
 
-Take binary addition `(+)` as a example,
-suppose `(+) :: Num a => a -> a -> a`, what is `x`?
+Take binary addition `(+)` as a example, 
+suppose `(+) :: Num a => a -> a -> a` , what is `x` ?
+
 ```haskell
 add1 = (1+)
 x = add1 2
@@ -107,7 +185,7 @@ x = add1 2
 
 ## Function Composition
 
-is the same idea as in math,
+is the same idea as in math, 
 suppose we have two functions
 
 $$
@@ -128,7 +206,7 @@ You should know the type of function `h` by now.
 
 <!-- slide -->
 
-## Hight-order-functions
+## Higher-order-functions
 
 functions who takes in a functions as parameter and/or returns a function.
 Some well-known examples that exits in may languages
@@ -148,7 +226,7 @@ the composition operator is also a binary higher-order function
 
 ## Fold
 
-`fold` is the key function in functional programming,
+`fold` is the key function in functional programming, 
 ideally we can create any function with only `foldr`
 
 ```haskell
@@ -162,17 +240,20 @@ foldr :: (a -> b -> b) -> b -> [a] -> b
 
 To understand this function, we can take list as an example.
 In haskell, the list is just a data connected with operator `(:)`
+
 ```haskell
 (:) :: a -> [a] -> [a]
 ```
+
 so
+
 ```haskell
 [] == []
 [5] == 5 : []
 [4, 5] == 4 : (5 : [])
 ```
 
-Since `(:)` is bust a binary operator, we can replace it with any other binary operator,
+Since `(:)` is bust a binary operator, we can replace it with any other binary operator, 
 which gives the definition of "Foldable".
 
 <!-- slide -->
@@ -202,19 +283,19 @@ all' f xs = foldr (&&) True ys
 
 # Challenge
 
-Make a interesting and useful function library based on `foldr`.
+Make a interesting and useful function library based on `foldr` .
 * you may only use `foldr` and operators in haskell Prelude
 * once you make the first two functions with `foldr`, you can start composing them to get new functions
 * To Submit, fork this repository, write your name and email on top of `README.md`.
-  * write your library in `MyLibrary.hs`
-  * create and write a documentation `doc.md` for your library.
-  * To test your functions, use the interactive shell `ghci MyLibrary.hs`
-  * Submit a pull request to this repo when finished.
+  + write your library in `MyLibrary.hs`
+  + create and write a documentation `doc.md` for your library.
+  + To test your functions, use the interactive shell `ghci MyLibrary.hs`
+  + Submit a pull request to this repo when finished.
 
 <!-- slide -->
 
 # Useful Links
+* [GHC User's Guide](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/)
 * [Foldl vs Foldr](https://gist.github.com/CMCDragonkai/9f5f75118dda10131764)
 * [A Gentle Introduction to Haskell](https://www.haskell.org/tutorial/)
 * [Official Doc](https://www.haskell.org/documentation/)
-

@@ -1,5 +1,12 @@
 module MyLibrary where
 
+quicksort :: Ord a => [a] -> [a]
+quicksort [] = []
+quicksort (x : xs) = quicksort left ++ [x] ++ quicksort right
+  where
+    left = [y | y <- xs, y < x]
+    right = [y | y <- xs, y >= x]
+
 map' :: (a -> b) -> [a] -> [b]
 map' f = foldr f' []
   where
