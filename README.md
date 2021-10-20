@@ -25,6 +25,55 @@ Create functions from functions.
 
 <!-- slide -->
 
+# Different in Style
+
+If we want a function that add 1 to an array and return the result
+
+```python
+def add1(xs):
+  res = xs
+  for i in range(len(res)):
+    res[i] = res[i] + 1
+  return res
+```
+
+<!-- slide -->
+
+## with some functional thinking
+
+### Py with list comprehension
+
+```python
+def add1(xs):
+  return [i + 1 for i in xs]
+```
+
+### Functional JS
+
+```js
+function add1(xs) {
+  return xs.map(x => x + 1);
+}
+```
+
+<!-- slide -->
+
+## Still lots of noise in the function definition
+
+* Why do we have to explicitly construct a new list?
+* Why do the map function is associated with the list `xs`?
+* Why we still need to write a arrow function even we know `map` function applies to each element in `xs`?
+* Why so much parentheses?
+
+```haskell
+add1 xs = map (+1) xs
+
+-- better
+add1 = map (+1)
+```
+
+<!-- slide -->
+
 ## A Quick Comparison With Quick Sort
 
 <!-- slide -->
