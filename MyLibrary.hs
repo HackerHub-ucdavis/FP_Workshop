@@ -1,4 +1,5 @@
 module MyLibrary where
+import Data.List.Split (chunksOf)
 
 quicksort :: Ord a => [a] -> [a]
 quicksort [] = []
@@ -23,3 +24,6 @@ all' :: (a -> Bool) -> [a] -> Bool
 all' f xs = foldr (&&) True ys
   where
     ys = map f xs
+
+getTriangles :: [a] -> [[[a]]]
+getTriangles = chunksOf 3 . map (take 3) . chunksOf 9
