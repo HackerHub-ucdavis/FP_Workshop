@@ -304,6 +304,60 @@ the composition operator is also a binary higher-order function
 
 <!-- slide -->
 
+## Example in Computer Graphics
+
+Suppose we have a list of numbers representing a shape.
+Each pixel on the screen is represented by 9 values (vertex, color, normal):
+
+```
+[
+  x, y, z, r, g, b, u, v, w,
+  x, y, z, r, g, b, u, v, w,
+  x, y, z, r, g, b, u, v, w,
+  ...
+]
+```
+
+A triangle is formed by three vertices, i.e.
+
+```
+[
+  [x1, y2, z1],
+  [x2, y2, z2],
+  [x3, y3, z3]
+]
+```
+
+How can we write a function that takes a 1D list of values and returns a list of triangles?
+
+<!-- slide -->
+
+### Nested Loops
+
+```python
+def getTriangles(data):
+  count = 0;
+  vertex = []
+  vertices = []
+  for value in data:
+    vertex.append(value)
+    if len(vertex) == 9:
+      vertices.append(vertex[:3])
+      vertex = []
+  ...
+```
+
+### Composition
+
+with the `chunksOf` function
+
+```haskell
+getTriangles :: [a] -> [[[a]]]
+getTriangles = chunksOf 3 . map (take 3) . chunksOf 9
+```
+
+<!-- slide -->
+
 ## Fold
 
 `fold` is the key function in functional programming, 
