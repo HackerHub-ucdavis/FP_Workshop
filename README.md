@@ -106,7 +106,7 @@ def partition(arr, low, high):
 # high  --> Ending index
   
 # Function to do Quick sort
-  
+
   
 def quickSort(arr, low, high):
     if len(arr) == 1:
@@ -121,6 +121,28 @@ def quickSort(arr, low, high):
         # partition and after partition
         quickSort(arr, low, pi-1)
         quickSort(arr, pi+1, high)
+```
+
+<!-- slide -->
+
+### Easier with List Comprehension
+
+**NOTE**: not exactly the same, but intuitive
+```python
+def quicksort(xs):
+    if len(xs) == 0:
+        return []
+
+    pivot = xs[0]
+    xs = xs[1:]
+    left = [x for x in xs if x <= pivot]
+    right = [x for x in xs if x > pivot]
+
+    res = quicksort(left)
+    res.append(pivot)
+    res += quicksort(right)
+    return res
+
 ```
 
 <!-- slide -->
@@ -142,8 +164,15 @@ quicksort (x : xs) = quicksort left ++ [x] ++ quicksort right
 `ghc`: compiler
 `ghci`: The interactive shell of haskell, just like `IDLE` for python
 
+### How to compile
+
+```sh
+ghc main.hs
+```
+
 ### Useful command in `ghci`
 * `:t` or `:type` check the type signature of a expression.
+* `:l` load a local file (Module)
 
 For more detailed doc, see links at end of slides.
 
